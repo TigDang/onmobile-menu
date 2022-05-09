@@ -5,7 +5,6 @@
     font-weight: normal;
     font-size: 35px;
     margin: 5px;
-
     zoom: 1.15;
 }
 
@@ -25,21 +24,50 @@ h1{
     margin-bottom: 30px;
 }
 
-
-img {
+img{
     height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
 }
 
-.item{
+
+.category img {
+    border-radius: 10px;
+    border-width: 4px 0px 0px 2px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.72);
+}
+
+.category{
     color: black;
     height: 250px;
     width: 350px;
     /*border: 2px black solid;*/
-    border-radius: 10px;
+    border-radius: 10px 10px 0px 0px;
     margin: 30px 20px;
+}
+
+.item{
+    zoom: 1.1;
+    color: black;
+    height: 250px;
+    width: 350px;
+    /*margin: 30px 200px 70px 50px;*/
+    margin: 40px 15px;
+}
+
+.desc{
+    color: rgba(0,0,0,0.75);
+    font-size: medium;
+    background-color: aquamarine;
+    border-radius: 0px 0px 10px 10px;
+    border-top: none;
+    position: relative;
+    width: inherit;
+    top: -102px;
+    padding: 5px 0px;
+    text-align: center;
 }
 
 
@@ -63,8 +91,9 @@ span{
     display: block;
     width: fit-content;
     font-size: x-large;
-    top: -95px;
-    left: 233px;
+    top: -97px;
+    left: 241px;
+    border-radius: 10px 0px 0px 10px;
 }
 
 .cat_label{
@@ -106,7 +135,7 @@ span{
     -moz-transition: right 0.3s;
     transition: right 0.3s;
     /* определяем цвет фона панели */
-    background: RGBa(0,0,0,0.8);
+    background: RGBa(0,0,0,0.9);
     /* поверх других элементов */
     z-index: 2000;
 }

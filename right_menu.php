@@ -13,7 +13,7 @@
         foreach ($result as $row) {
             echo "<li><a style=\"cursor: pointer;\" onclick=\"window.location='../inner_menu.php/?category_id=" . $row['category_id'] . "';\">". $row['category_name']."";
         }
-        echo "<li><a style='margin: 100px 0px 0px' href='admin.php'>Авторизация</a>";
+        echo "<li><a style='margin: 100px 0px 0px' href='../admin.php'>Авторизация</a>";
         ?>
     </ul>
 </nav>

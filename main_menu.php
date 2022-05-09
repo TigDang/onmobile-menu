@@ -17,7 +17,14 @@ foreach ($result as $row) {
     if (!file_exists($row['picture_url']))
         //Картинка по-умолчанию
         $row['picture_url'] = "gfx/table.jpg";
-    echo "<div style=\"cursor: pointer;\" onclick=\"window.location='inner_menu.php/?category_id=" . $row['category_id'] . "';\" class='item'> <br><img src='" . $row['picture_url'] . "'><span class='cat_label'>" . $row['category_name'] . "</span></img> </div>";
+    echo "<div 
+            style=\"cursor: pointer;\" 
+            onclick=\"window.location='inner_menu.php/?category_id=" . $row['category_id'] . "';\" class='category'> 
+            <br>
+                <img src='" . $row['picture_url'] . "'>
+                <span class='cat_label'>" . $row['category_name'] . "</span>
+                </img> 
+          </div>";
 }
 echo "</div>";
 
