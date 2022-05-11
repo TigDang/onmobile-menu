@@ -29,5 +29,14 @@ foreach ($result as $row) {
 echo "</div>";
 
 
+
+
 //Боковое меню
 require "right_menu.php";
+
+?>
+
+<!--<div class="flag">
+    <section role="region" aria-hidden="true" class="italy-flag">
+    </section>
+</div>-->

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@240&display=swap');
 
-*{
+* {
     font-family: sans-serif;
     font-weight: normal;
     font-size: 35px;
@@ -8,23 +8,26 @@
     zoom: 1.15;
 }
 
-body{
+body {
     overflow-x: hidden;
 }
 
-h1{
+h1 {
+    display: inline;
     font-size: 50px;
     margin: 6px;
     font-weight: bolder;
+    background-color: white;
+    border-radius: 10px;
 }
 
-#label{
+#label {
     height: 100px;
     object-fit: contain;
     margin-bottom: 30px;
 }
 
-img{
+img {
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -34,12 +37,12 @@ img{
 
 .category img {
     border-radius: 10px;
-    border-width: 4px 0px 0px 2px;
-    border-style: solid;
+    /*border-width: 4px 0px 0px 2px;*/
+    /*border-style: solid;*/
     border-color: rgba(0, 0, 0, 0.72);
 }
 
-.category{
+.category {
     color: black;
     height: 250px;
     width: 350px;
@@ -48,7 +51,7 @@ img{
     margin: 30px 20px;
 }
 
-.item{
+.item {
     zoom: 1.1;
     color: black;
     height: 250px;
@@ -57,8 +60,8 @@ img{
     margin: 40px 15px;
 }
 
-.desc{
-    color: rgba(0,0,0,0.75);
+.desc {
+    color: rgba(0, 0, 0, 0.75);
     font-size: medium;
     background-color: aquamarine;
     border-radius: 0px 0px 10px 10px;
@@ -71,10 +74,9 @@ img{
 }
 
 
-
-span{
+span {
     display: inline-block;
-    background-color: RGBa(0,0,0,0.8);
+    background-color: RGBa(0, 0, 0, 0.8);
     color: white;
     border-radius: 10px;
     position: relative;
@@ -84,9 +86,9 @@ span{
     font-size: smaller;
 }
 
-.priceLabel{
+.priceLabel {
     position: relative;
-    background-color: RGBa(255,255,255,0.8);
+    background-color: RGBa(255, 255, 255, 0.8);
     color: black;
     display: block;
     width: fit-content;
@@ -96,7 +98,7 @@ span{
     border-radius: 10px 0px 0px 10px;
 }
 
-.cat_label{
+.cat_label {
 }
 
 #container {
@@ -104,6 +106,46 @@ span{
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+.flag {
+    position: fixed;
+    top: -300px;
+    z-index: -1000;
+    width: 100%;
+    border-width: 2px;
+    padding: 0;
+    margin: 0;
+}
+
+.flag * {
+    z-index: -1000;
+}
+
+.italy-flag {
+    width: 100%;
+    padding-bottom: 66.667%;
+    background-color: #ffffff;
+    position: relative;
+    margin: 0;
+    height: 500vh;
+}
+
+.italy-flag::before {
+    content: ' ';
+    position: absolute;
+    background-color: #009246;
+    width: 33.33%;
+    height: 500vh;
+}
+
+.italy-flag::after {
+    content: ' ';
+    position: absolute;
+    background-color: #CE2B37;
+    width: 33.33%;
+    height: 500vh;
+    right: 0;
 }
 
 
@@ -135,12 +177,12 @@ span{
     -moz-transition: right 0.3s;
     transition: right 0.3s;
     /* определяем цвет фона панели */
-    background: RGBa(0,0,0,0.9);
+    background: RGBa(0, 0, 0, 0.9);
     /* поверх других элементов */
     z-index: 2000;
 }
 
-.nav *{
+.nav * {
     overflow-x: hidden;
 }
 
@@ -229,9 +271,9 @@ span{
 
 [id='nav-toggle']:checked ~ .nav {
     right: 0;
-    box-shadow:-4px 0px 20px 0px rgba(0,0,0, 0.5);
-    -moz-box-shadow:-4px 0px 20px 0px rgba(0,0,0, 0.5);
-    -webkit-box-shadow:-4px 0px 20px 0px rgba(0,0,0, 0.5);
+    box-shadow: -4px 0px 20px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: -4px 0px 20px 0px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: -4px 0px 20px 0px rgba(0, 0, 0, 0.5);
     overflow-y: auto;
 }
 

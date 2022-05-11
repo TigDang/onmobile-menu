@@ -27,7 +27,6 @@ $sql = 'SELECT admin_privilege_num FROM admin_account WHERE login="' . $author .
 $admin_priv_res_query = $link->query($sql)->fetch_all(MYSQLI_ASSOC);
 
 
-
 //Если переменная Name передана
 if (isset($_POST["name"])) {
     //Если это запрос на обновление, то обновляем
@@ -41,7 +40,7 @@ if (isset($_POST["name"])) {
         $redact_id_query = mysqli_query($link, "SELECT item_id FROM item WHERE name=" . $_POST['name']);
         //Проблема с налл. Запрос возвращается пустой
         $redact_id = null;
-        if ($redact_id_query){
+        if ($redact_id_query) {
             foreach ($redact_id_query as $row) {
                 $redact_id = $row['item_id'];
             }
@@ -126,7 +125,7 @@ if (isset($_GET['red_id'])) {
     <?php
     $result = mysqli_query($link, 'SELECT * FROM item ORDER BY price');
     while ($raw = mysqli_fetch_array($result)) {
-        $isShownInterpreted = $raw['isShown']==1 ? "Да" : "Нет";
+        $isShownInterpreted = $raw['isShown'] == 1 ? "Да" : "Нет";
         echo '<tr>' .
             "<td>{$raw['name']}</td>" .
             "<td>{$raw['price']}</td>" .
@@ -134,10 +133,9 @@ if (isset($_GET['red_id'])) {
             "<td>{$raw['picture_url']}</td>" .
             "<td>{$raw['desc']}</td>" .
             "<td><a href='?red_id={$raw['item_id']}'>Изменить</a></td>";
-        if ($admin_priv_res_query[0]['admin_privilege_num'] == 15){
-            echo  "<td><a href='?del_id={$raw['item_id']}'>Удалить</a></td>";
-        }
-        else echo "<td>    </td>";
+        if ($admin_priv_res_query[0]['admin_privilege_num'] == 15) {
+            echo "<td><a href='?del_id={$raw['item_id']}'>Удалить</a></td>";
+        } else echo "<td>    </td>";
         echo "</tr>";
     }
     ?>
@@ -151,13 +149,14 @@ if (isset($_GET['red_id'])) {
 <?php
 
 
-
-if ($admin_priv_res_query[0]['admin_privilege_num'] ==15){
+if ($admin_priv_res_query[0]['admin_privilege_num'] == 15) {
     showEditJournal();
+    createNewAccount();
 }
 
 function showEditJournal()
 {
+    require 'mysql.php';
     echo "<h1>История изменений</h1> <table border='1'><tr>
         <td>edit_id</td>
         <td>Логин автора</td>
@@ -165,9 +164,7 @@ function showEditJournal()
         <td>Описание изменения</td>
         <td>Дата</td>
     </tr>";
-
-    require 'mysql.php';
-    $result = $link ->query('SELECT * FROM edit_history_view ORDER BY date_of_edit DESC');
+    $result = $link->query('SELECT * FROM edit_history_view ORDER BY date_of_edit DESC');
     while ($raw = mysqli_fetch_array($result)) {
         echo '<tr>' .
             "<td>{$raw['edit_id']}</td>" .
@@ -178,4 +175,55 @@ function showEditJournal()
             '</tr>';
     }
     echo "</table>";
+}
+
+function createNewAccount()
+{
+    require 'mysql.php';
+    echo "<h1>Администраторы</h1><table border='1'><tr>
+        <td>Логин</td>
+        <td>Пароль</td>
+        <td>Привилегия</td>
+    </tr>";
+    $admins = $link->query('SELECT * FROM admin_account');
+    while ($user = mysqli_fetch_array($admins)) {
+        echo '<tr>' .
+            "<td>{$user['login']}</td>" .
+            "<td>{$user['password']}</td>" .
+            "<td>{$user['admin_privilege_num']}</td>";
+            if ($user['admin_privilege_num'] <> 15) {
+                echo "<td><a href='?del_login={$user['login']}'>Удалить</a></td>";
+            } else echo "<td>    </td>";
+            echo '<tr>';
+    }
+    echo "<form action='' method='get'>";
+        echo "<tr>";
+            echo "<td><input type='text' name='new_login' value='' placeholder='Логин нового админа'></td>";
+            echo "<td><input type='text' name='new_password' value='' placeholder='Пароль'></td>";
+            echo "<td><input type='text' name='new_priv' value='1' placeholder='Привилегия'></td>";
+            echo "<td><input type='submit' value='Добавить'></td>";
+        echo "</tr>";
+    echo "</form>";
+
+    echo "</table>";
+
+    //Новый пользователь
+    if (isset($_GET['new_login'])){
+        $Addresult = $link->query("INSERT INTO admin_account(LOGIN, PASSWORD, ADMIN_PRIVILEGE_NUM) values ('{$_GET['new_login']}','{$_GET['new_password']}','{$_GET['new_priv']}');");
+        if ($Addresult) {
+            echo "<p>Пользователь {$_GET['new_login']} добавлен.</p>";
+        } else {
+            echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
+        }
+    }
+
+    //Удаление пользователя
+    if (isset($_GET['del_login'])){
+        $Delresult = $link->query("DELETE FROM admin_account WHERE login='{$_GET['del_login']}';");
+        if ($Delresult) {
+            echo "<p>Пользователь удален.</p>";
+        } else {
+            echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
+        }
+    }
 }

@@ -44,7 +44,6 @@ foreach ($itemsOfChoosedCategory as $item) {
 
 
 }
-
 echo "</div>";
 
 //Боковое меню
