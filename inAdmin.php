@@ -17,6 +17,9 @@ if (isset($_SESSION["login"])) {
     header('Location: ' . $new_url);
 }
 
+//Стиль
+echo "<link rel='stylesheet' href='inc/adminStyle.css'>";
+
 //Подключение БД
 require 'mysql.php';
 
@@ -28,16 +31,16 @@ $admin_priv_res_query = $link->query($sql)->fetch_all(MYSQLI_ASSOC);
 
 
 //Если переменная Name передана
-if (isset($_POST["name"])) {
+if (isset($_GET["name"])) {
     //Если это запрос на обновление, то обновляем
-    if (isset($_POST['red_id'])) {
-        $redact_id = $_POST['red_id'];
-        $result = mysqli_query($link, "UPDATE item SET name = '{$_POST['name']}',`price` = '{$_POST['price']}',`isShown` = '{$_POST['isShown']}', `picture_url` = '{$_POST['picture_url']}', `category_id` = '{$_POST['cat_id']}', `desc` = '{$_POST['desc']}' WHERE item_id={$_POST['red_id']}");
+    if (isset($_GET['red_id'])) {
+        $redact_id = $_GET['red_id'];
+        $result = mysqli_query($link, "UPDATE item SET name = '{$_GET['name']}',`price` = '{$_GET['price']}',`isShown` = '{$_GET['isShown']}', `picture_url` = '{$_GET['picture_url']}', `category_id` = '{$_GET['cat_id']}', `desc` = '{$_GET['desc']}' WHERE item_id={$_GET['red_id']}");
         $link->query("INSERT INTO `edit_journal` (`item_id`, `author_login` , `description`, `date_of_edit`) VALUES ('{$redact_id}', '{$author}',  'Изменение',  '" . date('Y-m-d H:i:s') . "')");
     } else {
         //Иначе вставляем данные, подставляя их в запрос
-        $result = mysqli_query($link, "INSERT INTO `item` (`name`, `price` , `isShown`, `picture_url`, 'category_id', 'desc') VALUES ('{$_POST['name']}', '{$_POST['price']}',  '{$_POST['isShown']}',  '{$_POST['picture_url']}', '{$_POST['cat_id']}', '{$_POST['desc']}')");
-        $redact_id_query = mysqli_query($link, "SELECT item_id FROM item WHERE name=" . $_POST['name']);
+        $result = mysqli_query($link, "INSERT INTO `item` (`name`, `price` , `isShown`, `picture_url`, 'category_id', 'desc') VALUES ('{$_GET['name']}', '{$_GET['price']}',  '{$_GET['isShown']}',  '{$_GET['picture_url']}', '{$_GET['cat_id']}', '{$_GET['desc']}')");
+        $redact_id_query = mysqli_query($link, "SELECT item_id FROM item WHERE name=" . $_GET['name']);
         //Проблема с налл. Запрос возвращается пустой
         $redact_id = null;
         if ($redact_id_query) {
@@ -56,9 +59,9 @@ if (isset($_POST["name"])) {
     }
 }
 
-if (isset($_POST['del_id'])) { //проверяем, есть ли переменная
+if (isset($_GET['del_id'])) { //проверяем, есть ли переменная
     //удаляем строку из таблицы
-    $result = mysqli_query($link, "DELETE FROM item WHERE `item_id`={$_POST['del_id']}");
+    $result = mysqli_query($link, "DELETE FROM item WHERE `item_id`={$_GET['del_id']}");
     if ($result) {
         echo "<p>Товар удален.</p>";
     } else {
@@ -67,52 +70,52 @@ if (isset($_POST['del_id'])) { //проверяем, есть ли переме�
 }
 
 //Если передана переменная red_id, то надо обновлять данные. Для начала достанем их из БД
-if (isset($_POST['red_id'])) {
-    $result = mysqli_query($link, "SELECT * FROM item WHERE `item_id`={$_POST['red_id']}");
+if (isset($_GET['red_id'])) {
+    $result = mysqli_query($link, "SELECT * FROM item WHERE `item_id`={$_GET['red_id']}");
     $product = mysqli_fetch_array($result);
 }
 ?>
 
 <h1>Изменение товаров</h1>
-<form action="" method="post">
+<form action="" method="get">
     <table>
         <tr>
             <td>Наименование:</td>
-            <td><input type="text" name="name" value="<?= isset($_POST['red_id']) ? $product['name'] : ''; ?>"></td>
+            <td><input type="text" name="name" value="<?= isset($_GET['red_id']) ? $product['name'] : ''; ?>"></td>
         </tr>
         <tr>
             <td>Цена:</td>
-            <td><input type="text" name="price" size="10"
-                       value="<?= isset($_POST['red_id']) ? $product['price'] : ''; ?>"> руб.
+            <td><input type="text" name="price"
+                       value="<?= isset($_GET['red_id']) ? $product['price'] : ''; ?>"> руб.
             </td>
         </tr>
         <tr>
             <td>Показывать ли:</td>
-            <td><input type="text" name="isShown" size="1"
-                       value="<?= isset($_POST['red_id']) ? $product['isShown'] : ''; ?>">, где 0 - не показывать
+            <td><input type="text" name="isShown"
+                       value="<?= isset($_GET['red_id']) ? $product['isShown'] : ''; ?>">, где 0 - не показывать
             </td>
         </tr>
         <tr>
             <td>Путь к картинке:</td>
-            <td><input type="text" name="picture_url" size="30"
-                       value="<?= isset($_POST['red_id']) ? $product['picture_url'] : ''; ?>"></td>
+            <td><input type="text" name="picture_url"
+                       value="<?= isset($_GET['red_id']) ? $product['picture_url'] : ''; ?>"></td>
         </tr>
         <tr>
             <td>Номер категории:</td>
-            <td><input type="text" name="cat_id" size="1"
-                       value="<?= isset($_POST['red_id']) ? $product['category_id'] : ''; ?>"></td>
+            <td><input type="text" name="cat_id"
+                       value="<?= isset($_GET['red_id']) ? $product['category_id'] : ''; ?>"></td>
         </tr>
         <tr>
             <td>Описание:</td>
-            <td><input type="text" name="desc" size="30"
-                       value="<?= isset($_POST['red_id']) ? $product['desc'] : ''; ?>"></td>
+            <td><input type="" name="desc"  required size="70"
+                       value="<?= isset($_GET['red_id']) ? $product['desc'] : ''; ?>"></td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" value="OK"></td>
         </tr>
     </table>
 </form>
-<table border='1'>
+<table>
     <tr>
         <td>Название</td>
         <td>Цена</td>
@@ -157,7 +160,7 @@ if ($admin_priv_res_query[0]['admin_privilege_num'] == 15) {
 function showEditJournal()
 {
     require 'mysql.php';
-    echo "<h1>История изменений</h1> <table border='1'><tr>
+    echo "<h1>История изменений</h1> <table><tr>
         <td>edit_id</td>
         <td>Логин автора</td>
         <td>Товар</td>
@@ -180,7 +183,7 @@ function showEditJournal()
 function createNewAccount()
 {
     require 'mysql.php';
-    echo "<h1>Администраторы</h1><table border='1'><tr>
+    echo "<h1>Администраторы</h1><table><tr>
         <td>Логин</td>
         <td>Пароль</td>
         <td>Привилегия</td>
@@ -208,18 +211,18 @@ function createNewAccount()
     echo "</table>";
 
     //Новый пользователь
-    if (isset($_POST['new_login'])){
-        $Addresult = $link->query("INSERT INTO admin_account(LOGIN, PASSWORD, ADMIN_PRIVILEGE_NUM) values ('{$_POST['new_login']}','{$_POST['new_password']}','{$_POST['new_priv']}');");
+    if (isset($_GET['new_login'])){
+        $Addresult = $link->query("INSERT INTO admin_account(LOGIN, PASSWORD, ADMIN_PRIVILEGE_NUM) values ('{$_GET['new_login']}','{$_GET['new_password']}','{$_GET['new_priv']}');");
         if ($Addresult) {
-            echo "<p>Пользователь {$_POST['new_login']} добавлен.</p>";
+            echo "<p>Пользователь {$_GET['new_login']} добавлен.</p>";
         } else {
             echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
         }
     }
 
     //Удаление пользователя
-    if (isset($_POST['del_login'])){
-        $Delresult = $link->query("DELETE FROM admin_account WHERE login='{$_POST['del_login']}';");
+    if (isset($_GET['del_login'])){
+        $Delresult = $link->query("DELETE FROM admin_account WHERE login='{$_GET['del_login']}';");
         if ($Delresult) {
             echo "<p>Пользователь удален.</p>";
         } else {
