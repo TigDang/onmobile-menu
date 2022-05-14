@@ -18,12 +18,10 @@ foreach ($result as $row) {
     if (!file_exists($row['picture_url']))
         //Картинка по-умолчанию
         $row['picture_url'] = "gfx/table.jpg";
-    echo "<button type='submit' name='category_id' value='". $row['category_id'] ."'><div class='category'> 
-            <br>
+    echo "<button class='category' type='submit' name='category_id' value='". $row['category_id'] ."'>
                 <img src='" . $row['picture_url'] . "'>
                 <span class='cat_label'>" . $row['category_name'] . "</span>
                 </img> 
-          </div>
           </button>";
 }
 echo "</div>";

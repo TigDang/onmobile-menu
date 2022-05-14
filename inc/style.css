@@ -21,6 +21,12 @@ h1 {
     border-radius: 10px;
 }
 
+li a{
+    text-decoration: none;
+    color: #b6b6b6;
+    font-size: medium;
+}
+
 #label {
     height: 100px;
     object-fit: contain;
@@ -35,8 +41,10 @@ img {
 }
 
 button{
-    border: none;
-    background: none;
+    all: unset;
+    cursor: pointer;
+    color: #dadada;
+    height: max-content;
 }
 
 
@@ -45,6 +53,10 @@ button{
     /*border-width: 4px 0px 0px 2px;*/
     /*border-style: solid;*/
     border-color: rgba(0, 0, 0, 0.72);
+    margin: 0;
+    object-fit: cover;
+    height: inherit;
+    width: inherit;
 }
 
 .category {
@@ -52,7 +64,7 @@ button{
     height: 250px;
     width: 350px;
     /*border: 2px black solid;*/
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 10px;
     margin: 30px 20px;
 }
 
@@ -363,7 +375,7 @@ body {
     font-size: 1.3em;
     line-height: 1.3em;
     opacity: 0;
-    transform: scale(0.1, 0.1);
+    /*transform: scale(0.1, 0.1);
     -ms-transform: scale(0.1, 0.1);
     -moz-transform: scale(0.1, 0.1);
     -webkit-transform: scale(0.1, 0.1);
@@ -374,7 +386,7 @@ body {
     transition: opacity 0.8s, transform 0.8s;
     -ms-transition: opacity 0.8s, -ms-transform 0.8s;
     -moz-transition: opacity 0.8s, -moz-transform 0.8s;
-    -webkit-transition: opacity 0.8s, -webkit-transform 0.8s;
+    -webkit-transition: opacity 0.8s, -webkit-transform 0.8s;*/
 }
 
 .nav h2 a {
@@ -408,7 +420,7 @@ body {
 }
 
 .nav > ul > li {
-    margin: 5px 0px;
+    margin: 20px 0;
     line-height: 1.5;
     opacity: 0;
     -webkit-transform: translateX(50%);
