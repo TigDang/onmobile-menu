@@ -24,7 +24,7 @@ h1 {
 li a{
     text-decoration: none;
     color: #b6b6b6;
-    font-size: medium;
+    font-size: x-large;
 }
 
 #label {
@@ -491,7 +491,7 @@ body {
  * оформление ссылок пунктов меню
  */
 
-.nav > ul > li > a {
+.nav > ul > li > button {
     display: inline-block;
     position: relative;
     padding: 0;

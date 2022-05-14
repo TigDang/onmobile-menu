@@ -16,7 +16,7 @@
             echo "<li>
 <button type='submit' name='category_id' value='". $row['category_id'] ."'>".
                 $row['category_name'].
-                "</button>";
+                "</button><hr>";
         }
         echo "<li><a style='margin: 100px 0px 0px' href='../admin.php'>Авторизация</a>";
 
