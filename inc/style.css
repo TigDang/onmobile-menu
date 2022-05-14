@@ -34,6 +34,11 @@ img {
     border-radius: 10px;
 }
 
+button{
+    border: none;
+    background: none;
+}
+
 
 .category img {
     border-radius: 10px;

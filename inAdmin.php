@@ -30,9 +30,9 @@ $admin_priv_res_query = $link->query($sql)->fetch_all(MYSQLI_ASSOC);
 //Если переменная Name передана
 if (isset($_POST["name"])) {
     //Если это запрос на обновление, то обновляем
-    if (isset($_GET['red_id'])) {
-        $redact_id = $_GET['red_id'];
-        $result = mysqli_query($link, "UPDATE item SET name = '{$_POST['name']}',`price` = '{$_POST['price']}',`isShown` = '{$_POST['isShown']}', `picture_url` = '{$_POST['picture_url']}', `category_id` = '{$_POST['cat_id']}', `desc` = '{$_POST['desc']}' WHERE item_id={$_GET['red_id']}");
+    if (isset($_POST['red_id'])) {
+        $redact_id = $_POST['red_id'];
+        $result = mysqli_query($link, "UPDATE item SET name = '{$_POST['name']}',`price` = '{$_POST['price']}',`isShown` = '{$_POST['isShown']}', `picture_url` = '{$_POST['picture_url']}', `category_id` = '{$_POST['cat_id']}', `desc` = '{$_POST['desc']}' WHERE item_id={$_POST['red_id']}");
         $link->query("INSERT INTO `edit_journal` (`item_id`, `author_login` , `description`, `date_of_edit`) VALUES ('{$redact_id}', '{$author}',  'Изменение',  '" . date('Y-m-d H:i:s') . "')");
     } else {
         //Иначе вставляем данные, подставляя их в запрос
@@ -56,9 +56,9 @@ if (isset($_POST["name"])) {
     }
 }
 
-if (isset($_GET['del_id'])) { //проверяем, есть ли переменная
+if (isset($_POST['del_id'])) { //проверяем, есть ли переменная
     //удаляем строку из таблицы
-    $result = mysqli_query($link, "DELETE FROM item WHERE `item_id`={$_GET['del_id']}");
+    $result = mysqli_query($link, "DELETE FROM item WHERE `item_id`={$_POST['del_id']}");
     if ($result) {
         echo "<p>Товар удален.</p>";
     } else {
@@ -67,8 +67,8 @@ if (isset($_GET['del_id'])) { //проверяем, есть ли перемен
 }
 
 //Если передана переменная red_id, то надо обновлять данные. Для начала достанем их из БД
-if (isset($_GET['red_id'])) {
-    $result = mysqli_query($link, "SELECT * FROM item WHERE `item_id`={$_GET['red_id']}");
+if (isset($_POST['red_id'])) {
+    $result = mysqli_query($link, "SELECT * FROM item WHERE `item_id`={$_POST['red_id']}");
     $product = mysqli_fetch_array($result);
 }
 ?>
@@ -78,34 +78,34 @@ if (isset($_GET['red_id'])) {
     <table>
         <tr>
             <td>Наименование:</td>
-            <td><input type="text" name="name" value="<?= isset($_GET['red_id']) ? $product['name'] : ''; ?>"></td>
+            <td><input type="text" name="name" value="<?= isset($_POST['red_id']) ? $product['name'] : ''; ?>"></td>
         </tr>
         <tr>
             <td>Цена:</td>
             <td><input type="text" name="price" size="10"
-                       value="<?= isset($_GET['red_id']) ? $product['price'] : ''; ?>"> руб.
+                       value="<?= isset($_POST['red_id']) ? $product['price'] : ''; ?>"> руб.
             </td>
         </tr>
         <tr>
             <td>Показывать ли:</td>
             <td><input type="text" name="isShown" size="1"
-                       value="<?= isset($_GET['red_id']) ? $product['isShown'] : ''; ?>">, где 0 - не показывать
+                       value="<?= isset($_POST['red_id']) ? $product['isShown'] : ''; ?>">, где 0 - не показывать
             </td>
         </tr>
         <tr>
             <td>Путь к картинке:</td>
             <td><input type="text" name="picture_url" size="30"
-                       value="<?= isset($_GET['red_id']) ? $product['picture_url'] : ''; ?>"></td>
+                       value="<?= isset($_POST['red_id']) ? $product['picture_url'] : ''; ?>"></td>
         </tr>
         <tr>
             <td>Номер категории:</td>
             <td><input type="text" name="cat_id" size="1"
-                       value="<?= isset($_GET['red_id']) ? $product['category_id'] : ''; ?>"></td>
+                       value="<?= isset($_POST['red_id']) ? $product['category_id'] : ''; ?>"></td>
         </tr>
         <tr>
             <td>Описание:</td>
             <td><input type="text" name="desc" size="30"
-                       value="<?= isset($_GET['red_id']) ? $product['desc'] : ''; ?>"></td>
+                       value="<?= isset($_POST['red_id']) ? $product['desc'] : ''; ?>"></td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" value="OK"></td>
@@ -150,8 +150,8 @@ if (isset($_GET['red_id'])) {
 
 
 if ($admin_priv_res_query[0]['admin_privilege_num'] == 15) {
-    showEditJournal();
     createNewAccount();
+    showEditJournal();
 }
 
 function showEditJournal()
@@ -191,12 +191,12 @@ function createNewAccount()
             "<td>{$user['login']}</td>" .
             "<td>{$user['password']}</td>" .
             "<td>{$user['admin_privilege_num']}</td>";
-            if ($user['admin_privilege_num'] <> 15) {
+            if ($user['login'] <> $_SESSION['login']) {
                 echo "<td><a href='?del_login={$user['login']}'>Удалить</a></td>";
             } else echo "<td>    </td>";
             echo '<tr>';
     }
-    echo "<form action='' method='get'>";
+    echo "<form action='' method='post'>";
         echo "<tr>";
             echo "<td><input type='text' name='new_login' value='' placeholder='Логин нового админа'></td>";
             echo "<td><input type='text' name='new_password' value='' placeholder='Пароль'></td>";
@@ -208,18 +208,18 @@ function createNewAccount()
     echo "</table>";
 
     //Новый пользователь
-    if (isset($_GET['new_login'])){
-        $Addresult = $link->query("INSERT INTO admin_account(LOGIN, PASSWORD, ADMIN_PRIVILEGE_NUM) values ('{$_GET['new_login']}','{$_GET['new_password']}','{$_GET['new_priv']}');");
+    if (isset($_POST['new_login'])){
+        $Addresult = $link->query("INSERT INTO admin_account(LOGIN, PASSWORD, ADMIN_PRIVILEGE_NUM) values ('{$_POST['new_login']}','{$_POST['new_password']}','{$_POST['new_priv']}');");
         if ($Addresult) {
-            echo "<p>Пользователь {$_GET['new_login']} добавлен.</p>";
+            echo "<p>Пользователь {$_POST['new_login']} добавлен.</p>";
         } else {
             echo '<p>Произошла ошибка: ' . mysqli_error($link) . '</p>';
         }
     }
 
     //Удаление пользователя
-    if (isset($_GET['del_login'])){
-        $Delresult = $link->query("DELETE FROM admin_account WHERE login='{$_GET['del_login']}';");
+    if (isset($_POST['del_login'])){
+        $Delresult = $link->query("DELETE FROM admin_account WHERE login='{$_POST['del_login']}';");
         if ($Delresult) {
             echo "<p>Пользователь удален.</p>";
         } else {
