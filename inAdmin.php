@@ -123,7 +123,7 @@ if (isset($_GET['red_id'])) {
         <td></td>
     </tr>
     <?php
-    $result = mysqli_query($link, 'SELECT * FROM item ORDER BY price');
+    $result = mysqli_query($link, 'SELECT * FROM item ORDER BY category_id, price');
     while ($raw = mysqli_fetch_array($result)) {
         $isShownInterpreted = $raw['isShown'] == 1 ? "Да" : "Нет";
         echo '<tr>' .
