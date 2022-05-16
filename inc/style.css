@@ -95,14 +95,15 @@ button{
 
 span {
     display: inline-block;
-    background-color: RGBa(0, 0, 0, 0.8);
-    color: white;
+    background-color: RGBa(255, 255, 255, 0.6);
+    color: black;
     border-radius: 10px;
     position: relative;
     top: -250px;
     left: -10px;
     padding: 2px;
     font-size: smaller;
+    border-bottom: #c9c9c9 1px solid;
 }
 
 .priceLabel {
