@@ -1,7 +1,4 @@
 <?php
-require_once('inc/functions.php'); 
-require_once('inc/languages.php'); 
-require_once('Smarty.class.php');
 
 $new_url = 'main_menu.php';
 header('Location: '.$new_url);
