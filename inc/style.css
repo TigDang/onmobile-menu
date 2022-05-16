@@ -31,6 +31,8 @@ li a{
     height: 100px;
     object-fit: contain;
     margin-bottom: 30px;
+    background: none;
+    filter: none;
 }
 
 img {
@@ -110,12 +112,12 @@ span {
     display: block;
     width: fit-content;
     font-size: x-large;
-    top: -97px;
-    left: 241px;
-    border-radius: 10px 0px 0px 10px;
+    left: 0px;
+    border-radius: 0px 10px 10px 0px;
 }
 
-.cat_label {
+.cat-item_label {
+    position: relative;
 }
 
 #container {
