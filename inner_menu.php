@@ -10,14 +10,14 @@ require 'mysql.php';
 
 
 //Определяем категорию
-if (isset($_GET['category_id'])) {
-    $itemsOfChoosedCategory = $link->query("SELECT * FROM item WHERE category_id = " . $_GET['category_id'] . " ORDER BY price ASC");
+if (isset($_POST['category_id'])) {
+    $itemsOfChoosedCategory = $link->query("SELECT * FROM item WHERE category_id = " . $_POST['category_id'] . " ORDER BY price ASC");
 } else
     $itemsOfChoosedCategory = $link->query("SELECT * FROM item");
 
 
 //Пишем заголовок
-$titleQuery = $link->query("SELECT category_name FROM category WHERE category_id = " . $_GET['category_id']);
+$titleQuery = $link->query("SELECT category_name FROM category WHERE category_id = " . $_POST['category_id']);
 
 foreach ($titleQuery as $row) {
     $title = $row["category_name"];

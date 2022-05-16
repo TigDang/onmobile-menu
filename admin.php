@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+//Стиль
+echo "<link rel='stylesheet' href='inc/adminStyle.css'>";
+
 $echo = null;
 require 'mysql.php';
 
@@ -21,8 +24,8 @@ $echo = "<form action='admin.php' method='post'>
     <!--<link rel='stylesheet' href='inc/style.css'>-->
 </head>
 <body>
-<H1>Авторизация</H1>
-<div class='wrapper'>
+<div class='autoriz'>
+    Авторизация
     <main class='main' id='main'>
         <?php echo $echo; ?>
     </main>
