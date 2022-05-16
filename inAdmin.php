@@ -76,7 +76,7 @@ if (isset($_GET['red_id'])) {
 }
 ?>
 
-<h1>Изменение товаров</h1>
+<h1 class="adminMenuDetails">Изменение товаров</h1>
 <form action="" method="get">
     <table>
         <tr>
