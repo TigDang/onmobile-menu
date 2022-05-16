@@ -115,7 +115,26 @@ if (isset($_GET['red_id'])) {
         </tr>
     </table>
 </form>
+<<<<<<< adminPanel_incaps_by_categories
+
+    <?php
+    $result = mysqli_query($link, 'SELECT * FROM item ORDER BY category_id, price');
+    $mediatorCatName = "";
+    while ($raw = mysqli_fetch_array($result)) {
+        $currCatName = $link->query("SELECT category_name FROM category WHERE category_id =".$raw['category_id'])->fetch_all(MYSQLI_ASSOC);
+        if ($currCatName[0]['category_name']<>$mediatorCatName){
+            $mediatorCatName = $currCatName[0]['category_name'];
+            echo "</table></details>";
+
+            //Two lines of code to stay chosen item category details opened
+            $cat_id_of_Opened = isset($_GET['red_id']) ? $link->query("SELECT category_id FROM item WHERE item_id =".$_GET['red_id'])->fetch_all(MYSQLI_ASSOC) : null;
+            echo (isset($_GET['red_id']) and $raw['category_id'] == $cat_id_of_Opened[0]['category_id']) ? "<details open>" : "<details>";
+
+            echo "<summary>".$currCatName[0]['category_name']."</summary>";
+            echo "<table border='1'>
+=======
 <table>
+>>>>>>> dev
     <tr>
         <td>Название</td>
         <td>Цена</td>
@@ -124,13 +143,11 @@ if (isset($_GET['red_id'])) {
         <td>Описание</td>
         <td>Редактирование</td>
         <td></td>
-    </tr>
-    <?php
-    $result = mysqli_query($link, 'SELECT * FROM item ORDER BY price');
-    while ($raw = mysqli_fetch_array($result)) {
+    </tr>";
+        }
+        echo '<tr>';
         $isShownInterpreted = $raw['isShown'] == 1 ? "Да" : "Нет";
-        echo '<tr>' .
-            "<td>{$raw['name']}</td>" .
+        echo"<td>{$raw['name']}</td>" .
             "<td>{$raw['price']}</td>" .
             "<td>{$isShownInterpreted}</td>" .
             "<td>{$raw['picture_url']}</td>" .
@@ -138,11 +155,11 @@ if (isset($_GET['red_id'])) {
             "<td><a href='?red_id={$raw['item_id']}'>Изменить</a></td>";
         if ($admin_priv_res_query[0]['admin_privilege_num'] == 15) {
             echo "<td><a href='?del_id={$raw['item_id']}'>Удалить</a></td>";
-        } else echo "<td>    </td>";
+        } else echo "<td></td>";
         echo "</tr>";
     }
+    echo "</details></table>";
     ?>
-</table>
 <p><a href="?add=new">Добавить новый товар</a></p>
 
 
