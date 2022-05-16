@@ -1,0 +1,28 @@
+* {
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 35px;
+    margin: 5px;
+}
+
+h1{
+    font-size: larger;
+    margin-top: 100px;
+}
+
+td {
+    border: 1px solid grey;
+}
+
+td{
+    padding: 10px;
+}
+
+.autoriz{
+    zoom: 1.5;
+    margin: 0;
+}
+
+.adminMenuDetails{
+    margin-top: 50px
+}

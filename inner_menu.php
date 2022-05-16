@@ -10,14 +10,14 @@ require 'mysql.php';
 
 
 //Определяем категорию
-if (isset($_GET['category_id'])) {
-    $itemsOfChoosedCategory = $link->query("SELECT * FROM item WHERE category_id = " . $_GET['category_id'] . " ORDER BY price ASC");
+if (isset($_POST['category_id'])) {
+    $itemsOfChoosedCategory = $link->query("SELECT * FROM item WHERE category_id = " . $_POST['category_id'] . " ORDER BY price ASC");
 } else
     $itemsOfChoosedCategory = $link->query("SELECT * FROM item");
 
 
 //Пишем заголовок
-$titleQuery = $link->query("SELECT category_name FROM category WHERE category_id = " . $_GET['category_id']);
+$titleQuery = $link->query("SELECT category_name FROM category WHERE category_id = " . $_POST['category_id']);
 
 foreach ($titleQuery as $row) {
     $title = $row["category_name"];
@@ -37,12 +37,13 @@ foreach ($itemsOfChoosedCategory as $item) {
         if (!file_exists($item['picture_url']))
             //Картинка по-умолчанию
             $picture_url = "..\gfx/table.jpg";
-        echo "<div class='item'> <img src='" . $picture_url . "'><span class='cat-item_label'>" . $item['name'] . "</span></img><span class='priceLabel'>" . $item['price'] . "р. </span>  </div>";
+        echo "<div class='item'> <img src='" . $picture_url . "'><span class='cat-item_label'>" . $item['name'] . "</span></img><span class='priceLabel'>" . $item['price'] . "р. </span>";
+        if (isset($item['desc'])) echo "<div class = 'desc'>".$item['desc']."</div>";
+        echo "</div>";
     }
 
 
 }
-
 echo "</div>";
 
 //Боковое меню
