@@ -115,8 +115,6 @@ if (isset($_GET['red_id'])) {
         </tr>
     </table>
 </form>
-<<<<<<< adminPanel_incaps_by_categories
-
     <?php
     $result = mysqli_query($link, 'SELECT * FROM item ORDER BY category_id, price');
     $mediatorCatName = "";
@@ -132,9 +130,7 @@ if (isset($_GET['red_id'])) {
 
             echo "<summary>".$currCatName[0]['category_name']."</summary>";
             echo "<table border='1'>
-=======
 <table>
->>>>>>> dev
     <tr>
         <td>Название</td>
         <td>Цена</td>
@@ -158,7 +154,7 @@ if (isset($_GET['red_id'])) {
         } else echo "<td></td>";
         echo "</tr>";
     }
-    echo "</details></table>";
+    echo "</table></details>";
     ?>
 <p><a href="?add=new">Добавить новый товар</a></p>
 
@@ -177,7 +173,7 @@ if ($admin_priv_res_query[0]['admin_privilege_num'] == 15) {
 function showEditJournal()
 {
     require 'mysql.php';
-    echo "<h1>История изменений</h1> <table><tr>
+    echo "<details class='adminMenuDetails'><summary>История изменений</summary> <table><tr>
         <td>edit_id</td>
         <td>Логин автора</td>
         <td>Товар</td>
@@ -194,13 +190,13 @@ function showEditJournal()
             "<td>{$raw['date_of_edit']}</td>" .
             '</tr>';
     }
-    echo "</table>";
+    echo "</table></details>";
 }
 
 function createNewAccount()
 {
     require 'mysql.php';
-    echo "<h1>Администраторы</h1><table><tr>
+    echo "<details class='adminMenuDetails'><summary>Администраторы</summary><table><tr>
         <td>Логин</td>
         <td>Пароль</td>
         <td>Привилегия</td>
@@ -225,7 +221,7 @@ function createNewAccount()
         echo "</tr>";
     echo "</form>";
 
-    echo "</table>";
+    echo "</table></details>";
 
     //Новый пользователь
     if (isset($_GET['new_login'])){
