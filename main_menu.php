@@ -11,22 +11,21 @@ echo "<link rel='stylesheet' href='inc/style.css'>";
 $result = $link->query("SELECT * FROM category ORDER BY order_numero ASC");
 echo "<a href='..\main_menu.php'><img id=\"label\" src=\"..\gfx/label.jpg\"></a>";
 echo "<h1>Меню</h1>";
+echo "<form name='act' action='inner_menu.php' method='post'>";
 echo "<div id='container'>";
 foreach ($result as $row) {
     //Если не существует картинки по указанному адресу
     if (!file_exists($row['picture_url']))
         //Картинка по-умолчанию
         $row['picture_url'] = "gfx/table.jpg";
-    echo "<div 
-            style=\"cursor: pointer;\" 
-            onclick=\"window.location='inner_menu.php/?category_id=" . $row['category_id'] . "';\" class='category'> 
-            <br>
+    echo "<button class='category' type='submit' name='category_id' value='". $row['category_id'] ."'>
                 <img src='" . $row['picture_url'] . "'>
                 <span class='cat_label'>" . $row['category_name'] . "</span>
                 </img> 
-          </div>";
+          </button>";
 }
 echo "</div>";
+echo "</form>";
 
 
 
