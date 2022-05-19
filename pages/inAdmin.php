@@ -18,7 +18,7 @@ if (isset($_SESSION["login"])) {
 }
 
 //Стиль
-echo "<link rel='stylesheet' href='inc/adminStyle.css'>";
+echo "<link rel='stylesheet' href='../inc/adminStyle.css'>";
 
 //Подключение БД
 require 'mysql.php';

@@ -1,6 +1,6 @@
 <?php
 
-echo "<a href='..\main_menu.php'><img id=\"label\" src=\"..\gfx/label.jpg\"></a>";
+echo "<a href='..\pages\main_menu.php'><img id=\"label\" src=\"..\gfx/label.jpg\"></a>";
 
 echo "<link rel='stylesheet' href='..\inc/style.css'>";
 
@@ -32,9 +32,9 @@ echo "<div id='container'>";
 foreach ($itemsOfChoosedCategory as $item) {
     //Проверка на флаг видимости в меню
     if ($item['isShown'] <> 0) {
-        $picture_url = "..\\" . $item['picture_url'];
+        $picture_url = "../" . $item['picture_url'];
         //Если не существует картинки по указанному адресу
-        if (!file_exists($item['picture_url']))
+        if (!file_exists($picture_url))
             //Картинка по-умолчанию
             $picture_url = "..\gfx/table.jpg";
         echo "<div class='item'> <img src='" . $picture_url . "'><span class='cat-item_label'>" . $item['name'] . "</span></img><span class='priceLabel'>" . $item['price'] . "р. </span>";
