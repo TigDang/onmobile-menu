@@ -9,7 +9,7 @@ echo "<link rel='stylesheet' href='../inc/style.css'>";
 
 //Делаем меню основное
 $result = $link->query("SELECT * FROM category ORDER BY order_numero ASC");
-echo "<a href='..\pages\main_menu.php'><img id=\"label\" src=\"..\gfx/label.jpg\"></a>";
+echo "<a href='..\pages\main_menu.php'><img id=\"label\" src=\"..\gfx/label.png\"></a>";
 echo "<h1>Меню</h1>";
 echo "<form name='act' action='inner_menu.php' method='post'>";
 echo "<div id='container'>";

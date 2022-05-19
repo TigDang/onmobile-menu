@@ -1,6 +1,6 @@
 <?php
 
-echo "<a href='..\pages\main_menu.php'><img id=\"label\" src=\"..\gfx/label.jpg\"></a>";
+echo "<a href='..\pages\main_menu.php'><img id=\"label\" src=\"..\gfx/label.png\"></a>";
 
 echo "<link rel='stylesheet' href='..\inc/style.css'>";
 
