@@ -120,10 +120,13 @@ if (isset($_GET['red_id'])) {
     $mediatorCatName = "";
     while ($raw = mysqli_fetch_array($result)) {
         $currCatName = $link->query("SELECT category_name FROM category WHERE category_id =".$raw['category_id'])->fetch_all(MYSQLI_ASSOC);
+        //Если категория меняется при переборе
         if ($currCatName[0]['category_name']<>$mediatorCatName){
             $mediatorCatName = $currCatName[0]['category_name'];
+            //Закрываем прошлую таблицу и закрываем details
             echo "</table></details>";
 
+            //Открываем новый details (и если его айди указан в гет-запросе, то делаем открытым) и новую таблицу
             //Two lines of code to stay chosen item category details opened
             $cat_id_of_Opened = isset($_GET['red_id']) ? $link->query("SELECT category_id FROM item WHERE item_id =".$_GET['red_id'])->fetch_all(MYSQLI_ASSOC) : null;
             echo (isset($_GET['red_id']) and $raw['category_id'] == $cat_id_of_Opened[0]['category_id']) ? "<details open>" : "<details>";
@@ -141,6 +144,7 @@ if (isset($_GET['red_id'])) {
         <td></td>
     </tr>";
         }
+        //Формируем строку, повествующую об итеме
         echo '<tr>';
         $isShownInterpreted = $raw['isShown'] == 1 ? "Да" : "Нет";
         echo"<td>{$raw['name']}</td>" .
@@ -157,17 +161,6 @@ if (isset($_GET['red_id'])) {
     echo "</table></details>";
     ?>
 <p><a href="?add=new">Добавить новый товар</a></p>
-
-
-</body>
-</html>
-
-
-
-
-
-
-
 
 
 
