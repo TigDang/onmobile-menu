@@ -80,6 +80,10 @@ if (isset($_GET['red_id'])) {
 <form action="" method="get">
     <table>
         <tr>
+            <td>id:</td>
+            <td><input readonly type="text" name="red_id" value="<?= isset($_GET['red_id']) ? $product['item_id'] : ''; ?>"></td>
+        </tr>
+        <tr>
             <td>Наименование:</td>
             <td><input type="text" name="name" value="<?= isset($_GET['red_id']) ? $product['name'] : ''; ?>"></td>
         </tr>
