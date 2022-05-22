@@ -38,7 +38,7 @@ foreach ($itemsOfChoosedCategory as $item) {
 //            //Картинка по-умолчанию
 //            $picture_url = "../gfx/table.jpg";
         echo "<div class='item'> <img src='" . $item['picture_url'] . "'><span class='cat-item_label'>" . $item['name'] . "</span></img><span class='priceLabel'>" . $item['price'] . "р. </span>";
-        if (isset($item['desc'])) echo "<div class = 'desc'>".$item['desc']."</div>";
+        if (isset($item['desc']) and $item['desc']<>' ' and $item['desc']<>'') echo "<div class = 'desc'>".$item['desc']."</div>";
         echo "</div>";
     }
 
