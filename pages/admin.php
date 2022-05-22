@@ -2,7 +2,7 @@
 session_start();
 
 //Стиль
-echo "<link rel='stylesheet' href='inc/adminStyle.css'>";
+echo "<link rel='stylesheet' href='../inc/adminStyle.css'>";
 
 $echo = null;
 require 'mysql.php';
