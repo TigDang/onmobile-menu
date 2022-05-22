@@ -1,6 +1,6 @@
 <?php
 
-$new_url = 'main_menu.php';
+$new_url = 'pages/main_menu.php';
 header('Location: '.$new_url);
 
 

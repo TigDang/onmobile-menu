@@ -18,7 +18,7 @@
                 $row['category_name'].
                 "</button><hr>";
         }
-        echo "<li><a style='margin: 100px 0px 0px' href='../admin.php'>Авторизация</a>";
+        echo "<li><a style='margin: 100px 0px 0px' href='..\pages/admin.php'>Авторизация</a>";
 
         echo "</form>";
         ?>

@@ -10,6 +10,7 @@
 
 body {
     overflow-x: hidden;
+    background: #eeeeee;
 }
 
 h1 {
@@ -31,6 +32,8 @@ li a{
     height: 100px;
     object-fit: contain;
     margin-bottom: 30px;
+    background: none;
+    filter: none;
 }
 
 img {
@@ -93,14 +96,15 @@ button{
 
 span {
     display: inline-block;
-    background-color: RGBa(0, 0, 0, 0.8);
-    color: white;
+    background-color: RGBa(0, 0, 0, 0.9);
+    color: #ffffff;
     border-radius: 10px;
     position: relative;
     top: -250px;
     left: -10px;
     padding: 2px;
     font-size: smaller;
+    border-bottom: #3d3d3d 1px solid;
 }
 
 .priceLabel {
@@ -110,12 +114,12 @@ span {
     display: block;
     width: fit-content;
     font-size: x-large;
-    top: -97px;
-    left: 241px;
-    border-radius: 10px 0px 0px 10px;
+    left: 0px;
+    border-radius: 0px 10px 10px 0px;
 }
 
-.cat_label {
+.cat-item_label {
+    position: relative;
 }
 
 #container {
